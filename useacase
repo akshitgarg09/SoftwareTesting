@@ -1,0 +1,42 @@
+@startuml
+left to right direction
+
+actor User as user
+actor Server as server
+actor "E-commerce Website" as ecom
+actor Blogs as blog
+
+rectangle TrendMate{
+(Login) as login
+(Create New Account) as register
+(Verify Credentials) as verify
+(Display Login Errors) as error
+(Apply Filters) as filters
+(View Trendy Products) as viewProducts
+(View Celebrity Blogs) as viewBlogs
+(Add to favourites) as addfav
+(Remove from favourites) as remfav
+(Provide Live Data to Server) as serve
+}
+
+login ..> verify : include
+register ..> verify : include
+login <.. error : extend
+
+user -- login
+user -- register
+user -- filters
+user -- viewProducts
+user -- viewBlogs
+user -- addfav
+user -- remfav
+server -- serve
+server -- filters
+server -- viewProducts
+server -- viewBlogs
+server -- addfav
+server -- remfav
+ecom -- serve
+blog -- serve
+
+@enduml
