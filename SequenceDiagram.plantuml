@@ -1,0 +1,36 @@
+@startuml
+actor User as user
+participant "Login/Signup" as auth
+participant "Home Page" as home
+participant "Server" as server
+participant "Favourites" as fav
+participant "E-commerce Websites" as ecom
+participant "Blog Websites" as blog
+participant "Boards" as boards
+
+user -> auth : Enter Mobile Number
+auth -> server : Verify Number
+server -> auth : Send otp
+auth -> user : Request otp
+user -> auth : Fill otp
+auth -> server : Get otp
+
+alt If Otp is valid
+    server -> auth : Otp okay
+else Else
+    server -> auth : Invalid Otp, please retry
+end
+
+server -> ecom : Request data to fill in ecom models
+ecom -> server : Return data
+server -> blog : Request data to fit in NLP models
+blog -> server : Return data
+server -> home : Display content on screen
+home -> fav : Add to favourites
+fav -> server : Save in server
+home -> boards : Request new boards / Add to already existing board
+boards -> home : New / Already Existing
+home --> boards : Feedback
+boards --> server : Save in server
+
+@enduml
